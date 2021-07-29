@@ -2,7 +2,7 @@
 
 body{
     background-color: #EEF9BF;
-    padding-top: 40px;
+    padding: 40px 120px 0 120px;
     
 }
 
@@ -12,6 +12,7 @@ body{
     color: #75B79E;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -19,8 +20,24 @@ body{
     text-align: center;
 }
 
+.cards-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 47px;
+}
+
 .card{
     width: 117px;
     height: 146px;
-
+    background-color: #A7E9AF;
+    border-radius: 5px;
+    margin:0 34px 34px 34px;
+    background-image: url("../assets/front.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border: #99CEA8 solid;
+    border-width: 1px;
 }

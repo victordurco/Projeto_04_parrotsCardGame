@@ -9,12 +9,19 @@ function validadeNumberOfCards(n){
 }
 
 function createCards(n){
-
+    const container = document.querySelector(".cards-container");
+    
+    let cardsHTML = "";
+    for(i=0; i<n; i++){
+        cardsHTML+=`<div class="card"></div>`;
+    }
+    container.innerHTML = cardsHTML;
 }
 
 while (!validadeNumberOfCards(nCards)){
     nCards = prompt("Com quantas cartas deseja jogar? (Deve ser um número par, min:4 max:14 )");
 }
 
+createCards(nCards);
 
 
