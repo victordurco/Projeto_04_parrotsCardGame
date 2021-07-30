@@ -53,11 +53,12 @@ body{
 
 .front{
     background-image: url("../assets/front.png");
-    transform: rotateY(180deg);
+   
 }
 
 .back{
-    background-image: url("../assets/metalparrot.gif");
+    background-image: url("#");
+    transform: rotateY(180deg);
 }
 .card.flip {
     transform: rotateY(180deg);
