@@ -13,15 +13,28 @@ function createCards(n){
     
     let cardsHTML = "";
     for(i=0; i<n; i++){
-        cardsHTML+=`<div class="card"></div>`;
+        cardsHTML+=`
+        <div class="card">
+            <div class="front face"></div>
+            <div class="back face"></div>
+        </div>`;
     }
     container.innerHTML = cardsHTML;
 }
 
+function flip(){
+    this.classList.toggle('flip');
+}
+
+
+//main
 while (!validadeNumberOfCards(nCards)){
     nCards = prompt("Com quantas cartas deseja jogar? (Deve ser um número par, min:4 max:14 )");
 }
 
 createCards(nCards);
 
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card => card.addEventListener("click", flip));
 
