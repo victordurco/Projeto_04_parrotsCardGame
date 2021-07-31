@@ -1,4 +1,6 @@
 let nCards = 0;
+let hasFippledCard = false;
+let firstCard, secondCard;
 
 function comparador() { 
 	return Math.random() - 0.5; 
@@ -16,7 +18,7 @@ function validadeNumberOfCards(n){
 }
 
 function createCouples(n){
-    //create couples of different cards
+    //create couples of random cards
     let cards=[];
     let parrotsIndex = 0;
     for(let i=0; i<(n/2); i++){
@@ -52,8 +54,39 @@ function createCards(n){
     return finalDeck;
 }
 
+function freezeCards(){
+    firstCard.removeEventListener('click', flip);
+    secondCard.removeEventListener('click', flip);
+}
+
+function unflip(){
+    console.log("entrei unflip");
+    setTimeout(function waiting(){
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+    },1000);
+}
+
+function checkCardsMatch(){
+    if (firstCard.querySelector(".back").style.backgroundImage === secondCard.querySelector(".back").style.backgroundImage){
+        freezeCards();
+        return;
+    }
+    unflip();
+}
+
 function flip(){
-    this.classList.toggle('flip');
+    this.classList.add('flip');
+    console.log(firstCard);
+    console.log(secondCard);
+    if(!hasFippledCard){
+        hasFippledCard = true;
+        firstCard = this;
+    }else{
+        secondCard=this;
+        hasFippledCard = false;
+        checkCardsMatch();
+    } 
 }
 
 
