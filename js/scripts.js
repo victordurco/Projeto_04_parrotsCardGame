@@ -1,5 +1,7 @@
 let nCards = 0;
 let hasFippledCard = false;
+let flippedCards = 0;
+let moves =0;
 let firstCard, secondCard;
 let freezeBoard = false;
 
@@ -18,11 +20,11 @@ function validadeNumberOfCards(n){
     }
 }
 
-function createCouples(n){
+function createCouples(){
     //create couples of random cards
     let cards=[];
     let parrotsIndex = 0;
-    for(let i=0; i<(n/2); i++){
+    for(let i=0; i<(nCards/2); i++){
         for(let j=0; j<2; j++){
             cards.push(parrotsGifs[parrotsIndex]);
         }
@@ -40,25 +42,41 @@ function stampCards(cardStamps){
     return divCards;
 }
 
-function createCards(n){
+function createCards(){
     //create card divs
     const container = document.querySelector(".cards-container");
-    for(let i=0; i<n; i++){
+    for(let i=0; i<nCards; i++){
         container.innerHTML+=`
         <div class="card">
             <div class="front face"></div>
             <div class="back face"></div>
         </div>`;
     }
-    const shuffledCards = createCouples(n);  
+    const shuffledCards = createCouples();  
     let finalDeck = stampCards(shuffledCards);
     return finalDeck;
 }
 
+function endGame(){
+    let end;
+    if(flippedCards==nCards){
+        end = true;
+    }else{
+        end = false;
+    }
+    return end;
+}
 function freezeCards(){
     firstCard.removeEventListener('click', flip);
     secondCard.removeEventListener('click', flip);
+    flippedCards+=2;
     resetBoard();
+}
+
+function resetGame(){
+    resetBoard();
+    alert("Bora jogar denovo!");
+    window.location.reload(1);
 }
 
 function resetBoard(){
@@ -89,12 +107,17 @@ function flip(){
     if(freezeBoard===true){return;} 
     if(this===firstCard){return;}
     this.classList.add('flip');
+    moves++;
     if(!hasFippledCard){
         hasFippledCard = true;
         firstCard = this;
     }else{
         secondCard=this;
         checkCardsMatch();
+        if(endGame()){
+            alert(`Parabéns você ganhou em ${moves} jogadas!`);
+            resetGame();
+        }
     } 
 }
 
