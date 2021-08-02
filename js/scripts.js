@@ -1,6 +1,7 @@
 let nCards = 0;
 let hasFippledCard = false;
 let firstCard, secondCard;
+let freezeBoard = false;
 
 function comparador() { 
 	return Math.random() - 0.5; 
@@ -57,13 +58,22 @@ function createCards(n){
 function freezeCards(){
     firstCard.removeEventListener('click', flip);
     secondCard.removeEventListener('click', flip);
+    resetBoard();
+}
+
+function resetBoard(){
+    freezeBoard = false;
+    hasFippledCard = false;
+    firstCard = null;
+    secondCard = null;
 }
 
 function unflip(){
-    console.log("entrei unflip");
+    freezeBoard = true;
     setTimeout(function waiting(){
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
+        resetBoard();
     },1000);
 }
 
@@ -76,15 +86,14 @@ function checkCardsMatch(){
 }
 
 function flip(){
+    if(freezeBoard===true){return;} 
+    if(this===firstCard){return;}
     this.classList.add('flip');
-    console.log(firstCard);
-    console.log(secondCard);
     if(!hasFippledCard){
         hasFippledCard = true;
         firstCard = this;
     }else{
         secondCard=this;
-        hasFippledCard = false;
         checkCardsMatch();
     } 
 }
